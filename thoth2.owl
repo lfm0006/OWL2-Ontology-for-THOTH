@@ -1,0 +1,814 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY thoth "http://93.188.163.112/sparql/thoth2.owl#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://93.188.163.112/sparql/thoth2.owl#"
+     xml:base="http://93.188.163.112/sparql/thoth2.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:thoth="http://93.188.163.112/sparql/thoth2.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://93.188.163.112/sparql/thoth2.owl">
+        <rdfs:comment xml:lang="en-us">Ontology for THOTH - Cognitive Assistant</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasArea -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasArea">
+        <rdfs:comment xml:lang="en-us">Subarea belonging to an area</rdfs:comment>
+        <rdfs:range rdf:resource="&thoth;Area"/>
+        <rdfs:domain rdf:resource="&thoth;SubArea"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasAttribute -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasAttribute">
+        <rdfs:comment xml:lang="en-us">Object -&gt; Attribute -&gt; Value</rdfs:comment>
+        <rdfs:range rdf:resource="&thoth;Attribute"/>
+        <rdfs:domain rdf:resource="&thoth;OAV"/>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&thoth;hasAttribute"/>
+                <owl:onClass rdf:resource="&thoth;Attribute"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasAttributeSynonymous -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasAttributeSynonymous">
+        <rdfs:comment xml:lang="en-us">When an attribute has a synonymous</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasObject -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasObject">
+        <rdfs:comment xml:lang="en-us">Discipline contains objects</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;OAV"/>
+        <rdfs:range rdf:resource="&thoth;Object"/>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&thoth;hasObject"/>
+                <owl:onClass rdf:resource="&thoth;Object"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasObjectSubArea -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasObjectSubArea">
+        <rdfs:comment xml:lang="en-us">If an object is classified in a subarea</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Object"/>
+        <rdfs:range rdf:resource="&thoth;SubArea"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasPreObject -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasPreObject">
+        <rdfs:comment xml:lang="en-us">Object connected to a preobject</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Object"/>
+        <rdfs:range rdf:resource="&thoth;PreObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasProperty -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasProperty">
+        <rdfs:comment xml:lang="en-us">Property of a value</rdfs:comment>
+        <rdfs:range rdf:resource="&thoth;Property"/>
+        <rdfs:domain rdf:resource="&thoth;Value"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasQualifier -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasQualifier">
+        <rdfs:comment xml:lang="en-us">In case of a value has a qualifier</rdfs:comment>
+        <rdfs:range rdf:resource="&thoth;Qualifier"/>
+        <rdfs:domain rdf:resource="&thoth;Value"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasRelation -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasRelation">
+        <rdfs:comment xml:lang="en-us">Relation betwen two objects</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Object"/>
+        <rdfs:range rdf:resource="&thoth;Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasSubArea -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasSubArea">
+        <rdfs:comment xml:lang="en-us">Relation of the subarea with the area, or object in the subarea</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Area"/>
+        <rdfs:range rdf:resource="&thoth;SubArea"/>
+        <owl:inverseOf rdf:resource="&thoth;hasArea"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasValue -->
+
+    <owl:ObjectProperty rdf:about="&thoth;hasValue">
+        <rdfs:comment xml:lang="en-us">Value of an attribute</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;OAV"/>
+        <rdfs:range rdf:resource="&thoth;Value"/>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&thoth;hasValue"/>
+                <owl:onClass rdf:resource="&thoth;Value"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#isSubObject -->
+
+    <owl:ObjectProperty rdf:about="&thoth;isSubObject">
+        <rdfs:comment xml:lang="en-us">If object is sub-object in a hierarchy</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Object"/>
+        <rdfs:range rdf:resource="&thoth;Object"/>
+        <owl:inverseOf rdf:resource="&thoth;isSuperObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#isSuperObject -->
+
+    <owl:ObjectProperty rdf:about="&thoth;isSuperObject">
+        <rdfs:comment xml:lang="en-us">If the object is a superobject</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Object"/>
+        <rdfs:range rdf:resource="&thoth;Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasAuthor -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasAuthor">
+        <rdfs:comment xml:lang="en-us">Author of an attribute&apos;s value</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Value"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasAuthorPhoneme -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasAuthorPhoneme">
+        <rdfs:comment xml:lang="en-us">Author translated into phonemes</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Value"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasCardinality -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasCardinality">
+        <rdfs:comment xml:lang="en-us">Cardinality of the OAV or Attribute</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasCodCNPq -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasCodCNPq">
+        <rdfs:comment xml:lang="en-us">Brazilian&apos;s CNPq subarea code</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;SubArea"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasDisciplineInitials -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasDisciplineInitials">
+        <rdfs:comment xml:lang="en-us">Initials of the discipline</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Discipline"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasDisciplineName -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasDisciplineName">
+        <rdfs:comment xml:lang="en-us">Name of the discipline</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Discipline"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasEnabled -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasEnabled">
+        <rdfs:comment xml:lang="en-us">If the discipline is enabled</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Discipline"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasGender -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasGender">
+        <rdfs:comment xml:lang="en-us">Gender of an attribute or property</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Property"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&rdf;List"/>
+                        <rdf:first rdf:datatype="&xsd;int">0</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&rdf;List"/>
+                                <rdf:first rdf:datatype="&xsd;int">1</rdf:first>
+                                <rdf:rest rdf:resource="&rdf;nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasName -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasName">
+        <rdfs:comment xml:lang="en-us">Name of an attribute</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&thoth;Attribute"/>
+                    <rdf:Description rdf:about="&thoth;Discipline"/>
+                    <rdf:Description rdf:about="&thoth;Object"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasNamePlural -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasNamePlural">
+        <rdfs:comment xml:lang="en-us">Plural name of an attribute</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Object"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasPropertyDescription -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasPropertyDescription">
+        <rdfs:comment xml:lang="en-us">Description of the property of an value</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Property"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasQualifierDescription -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasQualifierDescription">
+        <rdfs:comment xml:lang="en-us">Description for a qualifier</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Qualifier"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasSubAreaDescription -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasSubAreaDescription">
+        <rdfs:comment xml:lang="en-us">Description of a subarea</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;SubArea"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasSynonymous -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasSynonymous">
+        <rdfs:comment xml:lang="en-us">Synonymous of an attribute</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasText -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasText">
+        <rdfs:comment xml:lang="en-us">Texto related to a value</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Value"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#hasYear -->
+
+    <owl:DatatypeProperty rdf:about="&thoth;hasYear">
+        <rdfs:comment xml:lang="en-us">Year related to the author of an value</rdfs:comment>
+        <rdfs:domain rdf:resource="&thoth;Value"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Area -->
+
+    <owl:Class rdf:about="&thoth;Area">
+        <rdfs:comment xml:lang="en-us">Area as described by CAPES</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute -->
+
+    <owl:Class rdf:about="&thoth;Attribute">
+        <rdfs:comment xml:lang="en-us">The attribute respective to the OAV</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Discipline -->
+
+    <owl:Class rdf:about="&thoth;Discipline">
+        <rdfs:comment xml:lang="en-us">Discipline of an object</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Hierarchy -->
+
+    <owl:Class rdf:about="&thoth;Hierarchy">
+        <rdfs:comment xml:lang="en-us">Hierarchical relation between objects</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#OAV -->
+
+    <owl:Class rdf:about="&thoth;OAV">
+        <rdfs:comment xml:lang="en-us">Object - Attribute - Value</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Object -->
+
+    <owl:Class rdf:about="&thoth;Object">
+        <rdfs:comment xml:lang="en-us">Object of a given matter of knowledge</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#PreObject -->
+
+    <owl:Class rdf:about="&thoth;PreObject">
+        <rdfs:comment xml:lang="en-us">Preobject related to an object</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Property -->
+
+    <owl:Class rdf:about="&thoth;Property">
+        <rdfs:comment xml:lang="en-us">Property of a value</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Qualifier -->
+
+    <owl:Class rdf:about="&thoth;Qualifier">
+        <rdfs:comment xml:lang="en-us">Qualifier of a value</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Question -->
+
+    <owl:Class rdf:about="&thoth;Question">
+        <rdfs:comment xml:lang="en-us">Question associated to an attribute</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#SubArea -->
+
+    <owl:Class rdf:about="&thoth;SubArea">
+        <rdfs:subClassOf rdf:resource="&thoth;Area"/>
+        <rdfs:comment xml:lang="en-us">Subarea as described by CAPES</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Value -->
+
+    <owl:Class rdf:about="&thoth;Value">
+        <rdfs:comment xml:lang="en-us">Value of an attribute</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Area_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Area_1">
+        <rdf:type rdf:resource="&thoth;Area"/>
+        <hasName xml:lang="en-us">Exact Sciences</hasName>
+        <hasSubArea rdf:resource="&thoth;SubArea_1"/>
+        <hasSubArea rdf:resource="&thoth;SubArea_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_1">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">concept</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_2 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_2">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">example</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_3 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_3">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">link</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_4 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_4">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">using</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_5 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_5">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">diagram</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_6 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_6">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">implementation</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_7 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_7">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">image</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_8 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_8">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">schematic</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Attribute_9 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Attribute_9">
+        <rdf:type rdf:resource="&thoth;Attribute"/>
+        <hasName xml:lang="en-us">video</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Discipline_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Discipline_1">
+        <rdf:type rdf:resource="&thoth;Discipline"/>
+        <hasName xml:lang="en-us">AAI</hasName>
+        <hasObject rdf:resource="&thoth;Objeto_1"/>
+        <hasObject rdf:resource="&thoth;Objeto_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#OAV_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;OAV_1">
+        <rdf:type rdf:resource="&thoth;OAV"/>
+        <hasAttribute rdf:resource="&thoth;Attribute_1"/>
+        <hasObject rdf:resource="&thoth;Objeto_1"/>
+        <hasValue rdf:resource="&thoth;Valor_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#OAV_2 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;OAV_2">
+        <rdf:type rdf:resource="&thoth;OAV"/>
+        <hasAttribute rdf:resource="&thoth;Attribute_3"/>
+        <hasObject rdf:resource="&thoth;Objeto_1"/>
+        <hasValue rdf:resource="&thoth;Valor_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#OAV_3 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;OAV_3">
+        <rdf:type rdf:resource="&thoth;OAV"/>
+        <hasAttribute rdf:resource="&thoth;Attribute_2"/>
+        <hasObject rdf:resource="&thoth;Objeto_1"/>
+        <hasValue rdf:resource="&thoth;Valor_5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Objeto_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Objeto_1">
+        <rdf:type rdf:resource="&thoth;Object"/>
+        <hasName xml:lang="en-us">neural network</hasName>
+        <hasNamePlural xml:lang="en-us">neural networks</hasNamePlural>
+        <hasSubArea rdf:resource="&thoth;SubArea_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Objeto_2 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Objeto_2">
+        <rdf:type rdf:resource="&thoth;Object"/>
+        <hasName xml:lang="en-us">Mark I</hasName>
+        <hasSubArea rdf:resource="&thoth;SubArea_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Objeto_3 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Objeto_3">
+        <rdf:type rdf:resource="&thoth;Object"/>
+        <hasName xml:lang="en-us">synapse</hasName>
+        <hasNamePlural xml:lang="en-us">synapses</hasNamePlural>
+        <hasSubArea rdf:resource="&thoth;SubArea_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Objeto_4 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Objeto_4">
+        <rdf:type rdf:resource="&thoth;Object"/>
+        <hasNamePlural xml:lang="en-us">artificial neuron</hasNamePlural>
+        <hasName xml:lang="en-us">artificial neurons</hasName>
+        <hasSubArea rdf:resource="&thoth;SubArea_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Objeto_5 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Objeto_5">
+        <rdf:type rdf:resource="&thoth;Object"/>
+        <hasName xml:lang="en-us">perceptron</hasName>
+        <hasNamePlural xml:lang="en-us">perceptrons</hasNamePlural>
+        <hasSubArea rdf:resource="&thoth;SubArea_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Propriedade_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Propriedade_1">
+        <rdf:type rdf:resource="&thoth;Property"/>
+        <hasGender rdf:datatype="&xsd;int">0</hasGender>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Propriedade_2 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Propriedade_2">
+        <rdf:type rdf:resource="&thoth;Property"/>
+        <hasGender rdf:datatype="&xsd;int">0</hasGender>
+        <hasPropertyDescription xml:lang="pt">dimensão ontológica</hasPropertyDescription>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Qualificador_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Qualificador_1">
+        <rdf:type rdf:resource="&thoth;Qualifier"/>
+        <hasQualifierDescription xml:lang="en-us">specific</hasQualifierDescription>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Qualificador_2 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Qualificador_2">
+        <rdf:type rdf:resource="&thoth;Qualifier"/>
+        <hasQualifierDescription xml:lang="pt">específico</hasQualifierDescription>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Question_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Question_1">
+        <rdf:type rdf:resource="&thoth;Question"/>
+        <hasText xml:lang="en-us">What is</hasText>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#SubArea_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;SubArea_1">
+        <rdf:type rdf:resource="&thoth;SubArea"/>
+        <hasName xml:lang="en-us">analytical models and simulation</hasName>
+        <hasCodCNPq xml:lang="pt">1.03.02.02-6</hasCodCNPq>
+        <hasArea rdf:resource="&thoth;Area_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#SubArea_2 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;SubArea_2">
+        <rdf:type rdf:resource="&thoth;SubArea"/>
+        <hasSubAreaDescription xml:lang="pt">Sistemas de Informação</hasSubAreaDescription>
+        <hasArea rdf:resource="&thoth;Area_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Valor_1 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Valor_1">
+        <rdf:type rdf:resource="&thoth;Value"/>
+        <rdfs:comment rdf:datatype="&xsd;string">exemplo de um conceito simples</rdfs:comment>
+        <hasText xml:lang="en-us">According to Haykin (2004), neural network means a processor distributed massively and in parallel, consisting of simple processing units, having the natural inclination to store experimental knowledge and make it available to use</hasText>
+        <hasAuthor xml:lang="en-us">Haykin</hasAuthor>
+        <hasAuthorPhoneme xml:lang="pt">Ráikin</hasAuthorPhoneme>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Valor_2 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Valor_2">
+        <rdf:type rdf:resource="&thoth;Value"/>
+        <rdfs:comment rdf:datatype="&xsd;string">segundo exemplo de um conceito simples</rdfs:comment>
+        <hasText xml:lang="pt">http://www.din.uem.br/ia/neurais/</hasText>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Valor_3 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Valor_3">
+        <rdf:type rdf:resource="&thoth;Value"/>
+        <rdfs:comment rdf:datatype="&xsd;string">exemplo de valor-objeto com propriedade</rdfs:comment>
+        <hasObject rdf:resource="&thoth;Objeto_4"/>
+        <hasProperty rdf:resource="&thoth;Propriedade_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Valor_4 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Valor_4">
+        <rdf:type rdf:resource="&thoth;Value"/>
+        <rdfs:comment rdf:datatype="&xsd;string">exemplo de valor-objeto com propriedade</rdfs:comment>
+        <hasObject rdf:resource="&thoth;Objeto_5"/>
+        <hasProperty rdf:resource="&thoth;Propriedade_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/thoth.owl#Valor_5 -->
+
+    <owl:NamedIndividual rdf:about="&thoth;Valor_5">
+        <rdf:type rdf:resource="&thoth;Value"/>
+        <rdfs:comment rdf:datatype="&xsd;string">exemplo com qualificador</rdfs:comment>
+        <hasText xml:lang="en-us">multilayer perceptron</hasText>
+        <hasQualifier rdf:resource="&thoth;Qualificador_1"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.5-SNAPSHOT) http://owlapi.sourceforge.net -->
+

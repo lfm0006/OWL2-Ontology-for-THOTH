@@ -1,0 +1,563 @@
+# Return the OAV value, given an object and attribute respective
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT DISTINCT ?t
+WHERE {
+   {?s ?p thoth:OAV }
+   {?s thoth:hasObject ?o }
+   {?o thoth:hasName "neural network"@en-us } 
+   {?s thoth:hasAttribute ?a }
+   {?a thoth:hasName "concept"@en-us } 
+   {?s thoth:hasValue ?v }
+   {?v thoth:hasText ?t } 
+}
+
+# Return the OAV value from an object and attribute respective
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT DISTINCT ?text
+WHERE {
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName "neural network"@en .
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName "concept"@en .
+   ?oav :hasValue ?val .
+   ?val :hasText ?text .
+} 
+
+# Counting triples of a given object
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+SELECT (count(?s) AS ?n)
+WHERE {
+   {?s ?p :OAV }
+   {?s :hasObject ?o }
+   {?o :hasName "neural network"@en-us } 
+} 
+
+# Counting triples of a given object - another syntax 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT (count(?s) AS ?n)
+WHERE {
+   ?s a :OAV .
+   ?s :hasObject ?o .
+   ?o :hasName "neural network"@en-us .
+} 
+
+# List of attributes
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?s ?name
+WHERE {
+   ?s a :Attribute .
+   ?s :hasName ?name
+} 
+
+# Counting attributes
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?s (count(?s) AS ?n)
+WHERE {
+   ?s a :Attribute .
+} 
+GROUP BY ?s
+HAVING (?n > 1)
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT *
+WHERE {
+   ?x ?y ?z .
+} 
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT (count(?s) AS ?n)
+WHERE {
+   ?s a :Attribute .
+} 
+
+# Detailed list of attributes
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?name ?question
+WHERE {
+   ?s a :Attribute .
+   ?s :hasName ?name .
+   ?s :hasQuestion ?q .
+   ?q :hasText ?question .
+} 
+
+# Returning OAV triples for a specific object
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?attrname ?question ?text
+WHERE {
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName "neural network"@en .
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attrname .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?question .
+   ?oav :hasValue ?value .
+   ?value :hasText ?text .
+}
+
+# List of attributes and questions
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?attrname ?question
+WHERE {
+   ?attr :hasName ?attrname .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?question .
+}
+
+# Counting attributes and questions
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT (count(?attr) AS ?n)
+WHERE {
+   ?attr :hasName ?attrname .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?question .
+}
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT (count(*) AS ?n)
+WHERE {
+   ?attr :hasName ?attrname .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?question .
+}
+
+# Counting all
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX lom-edu: <http://kmr.nada.kth.se/el/ims/schemas/lom-educational>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT (count(*) as ?n)
+WHERE {
+   ?s ?p ?o
+}
+
+# Getting objects for a specific interactivity level
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX lom-edu: <http://kmr.nada.kth.se/el/ims/schemas/lom-educational>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?s ?name ?o
+WHERE {
+   ?s lom-edu:interactivityLevel ?o .
+   ?s :hasName ?name
+}
+
+# Filtering attributes and questions given a specific object
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?attrname ?question ?text
+WHERE {
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName ?name .
+   FILTER (?name ="neural network"@en) . 
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attrname .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?question .
+   ?oav :hasValue ?value .
+   ?value :hasText ?text .
+}
+
+# Filtering attributes and questions given a specific object - alternative syntax
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?attrname ?question ?text
+WHERE {
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName ?name .
+   FILTER regex(?name, "neural network") . 
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attrname .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?question .
+   ?oav :hasValue ?value .
+   ?value :hasText ?text .
+}
+
+# Concatenation of strings using CONCAT, BIND and STR
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?attribute ?question ?value
+WHERE {
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName ?object .
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attribute .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?q .
+   ?oav :hasValue ?v .
+   ?v :hasText ?value .
+   FILTER regex(?object, "neural network") . 
+   FILTER regex(?attribute, "concept") . 
+   BIND(CONCAT(STR(?q)," ","neural network","?") AS ?question) .
+}
+
+# Getting answers for a specific object and attribute
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?attribute ?question ?value ?answer ?prefix ?text ?final 
+WHERE { 
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName ?object .
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attribute .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?q .
+   ?oav :hasValue ?v .
+   ?v :hasText ?value .
+   ?v :hasAuthor ?author .
+   ?answer a :Answer .
+   ?answer :hasAttribute ?attr .
+   ?answer :hasPrefix ?prefix .
+   ?answer :hasText ?text .
+   FILTER regex(?object, "neural network") . 
+   FILTER regex(?attribute, "concept") . 
+   BIND(CONCAT(STR(?q)," ","neural network","?") AS ?question) .
+   BIND(REPLACE(STR(?prefix), "\\__a", STR(?author)) as ?final) .
+}
+
+# Getting answers for a specific object and attribute
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?attribute ?question ?value ?answer ?prefix ?text ?final 
+WHERE { 
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName ?object .
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attribute .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?q .
+   ?oav :hasValue ?v .
+   ?v :hasText ?value .
+   ?v :hasAuthor ?author .
+   ?answer a :Answer .
+   ?answer :hasAttribute ?attr .
+   ?answer :hasPrefix ?prefix .
+   ?answer :hasText ?text .
+   FILTER regex(?object, "neural network") . 
+   FILTER regex(?attribute, "concept") . 
+   BIND(CONCAT(STR(?q)," ","neural network","?") AS ?question) .
+   BIND(CONCAT(
+      REPLACE(STR(?prefix), "\\__a", STR(?author)),", ",
+      REPLACE(STR(?text),"\\__o", STR(?object)))
+
+ as ?final) .
+}
+
+# Getting answers for a specific object and attribute
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?attribute ?question ?final 
+WHERE { 
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName ?object .
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attribute .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?q .
+   ?oav :hasValue ?v .
+   ?v :hasText ?value .
+   ?v :hasAuthor ?author .
+   ?answer a :Answer .
+   ?answer :hasAttribute ?attr .
+   ?answer :hasPrefix ?prefix .
+   ?answer :hasText ?text .
+   FILTER regex(?object, "neural network") . 
+   FILTER regex(?attribute, "concept") . 
+   # Composing the prefix 
+   BIND(CONCAT(STR(?q)," ","neural network","?") AS ?question) .
+   # Replacing internal variables __a, __o, __v by author, object and value respective
+   BIND(CONCAT(
+    REPLACE(STR(?prefix), "\\__a", STR(?author)),", ",
+    REPLACE(STR(REPLACE(STR($text), "\\__v", STR(?value))),"\\__o", STR(?object))) as ?final) .
+}
+
+# Getting answers for a specific object and attribute
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?question ?final 
+WHERE { 
+   ?oav a :OAV .
+   ?oav :hasObject ?obj .
+   ?obj :hasName ?object .
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attribute .
+   ?attr :hasQuestion ?ques .
+   ?ques :hasText ?q .
+   ?oav :hasValue ?v .
+   ?v :hasText ?value .
+   ?v :hasAuthor ?author .
+   ?v :hasYear ?y .
+   ?answer a :Answer .
+   ?answer :hasAttribute ?attr .
+   ?answer :hasPrefix ?prefix .
+   ?answer :hasText ?text .
+   FILTER regex(?object, "neural network", "i") . 
+   FILTER regex(?attribute, "concept", "i") . 
+   BIND(
+     CONCAT(STR(?q)," ","neural network","?") AS ?question) .
+   BIND(
+     CONCAT(
+       REPLACE(STR(?prefix), "\\__a", CONCAT(STR(?author)," (",?y,")")),
+       ", ",
+       REPLACE(STR(REPLACE(STR($text), "\\__v", STR(?value))),"\\__o", STR(?object))
+     ) 
+   as ?final) .
+}
+
+# With property paths
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT *
+WHERE { 
+   ?oav a :OAV .
+   ?oav :hasObject/:hasName ?object .
+}
+
+# Getting answers for a specific object and attribute
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?question ?final 
+WHERE { 
+   ?oav a :OAV .
+   ?oav :hasObject/:hasName ?object .
+   ?oav :hasAttribute ?attr .
+   ?attr :hasName ?attribute .
+   ?attr :hasQuestion/:hasText ?q .
+   ?oav :hasValue ?v .
+   ?v :hasText ?value .
+   ?v :hasAuthor ?author .
+   ?v :hasYear ?y .
+   ?answer a :Answer .
+   ?answer :hasAttribute ?attr .
+   ?answer :hasPrefix ?prefix .
+   ?answer :hasText ?text .
+   FILTER regex(?object, "neural network", "i") . 
+   FILTER regex(?attribute, "concept", "i") . 
+   BIND(
+     CONCAT(STR(?q)," ","neural network","?") AS ?question) .
+   BIND(
+     CONCAT(
+       REPLACE(STR(?prefix), "\\__a", CONCAT(STR(?author)," (",?y,")")),
+       ", ",
+       REPLACE(STR(REPLACE(STR($text), "\\__v", STR(?value))),"\\__o", STR(?object))
+     ) 
+   as ?final) .
+}
+
+# Getting objects of an OAV triples
+SELECT *
+WHERE { 
+   ?oav a :OAV .
+   ?oav :hasObject [ :hasName ?object ]
+}
+
+# Getting information about answer
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT *
+WHERE { 
+   ?answer a :Answer ;
+             :hasAttribute ?attr ;
+             :hasPrefix ?prefix ;
+             :hasText ?text .
+}
+
+# Getting answers for a specific object and attribute
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+SELECT ?question ?final 
+WHERE { 
+   ?oav a :OAV .
+   ?oav :hasObject/:hasName ?object ;
+        :hasAttribute ?attr .
+   ?att :hasName ?attribute ;
+        :hasQuestion/:hasText ?q .
+   ?oav :hasValue ?val .
+   ?val :hasText ?value ;
+        :hasAuthor ?author ;
+        :hasYear ?y .
+   ?ans a :Answer ;
+        :hasAttribute ?att ;
+        :hasPrefix ?prefix ;
+        :hasText ?text .
+   FILTER regex(?object, "neural network", "i") . 
+   FILTER regex(?attribute, "concept", "i") . 
+   BIND(
+     CONCAT(STR(?q)," ","neural network","?") AS ?question) .
+   BIND(
+     CONCAT(
+       REPLACE(STR(?prefix), "\\__a", CONCAT(STR(?author)," (",?y,")")),
+       ", ",
+       REPLACE(STR(REPLACE(STR($text), "\\__v", STR(?value))),"\\__o", STR(?object))
+     ) 
+   as ?final) .
+}
+
+# List of attributes (CONSTRUCT)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+CONSTRUCT { ?s :hasName ?name }
+WHERE {
+	?s a :Attribute .
+	?s :hasName ?name
+} 
+
+# List of attributes (DESCRIBE)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+DESCRIBE ?s 
+WHERE {
+	?s a :Attribute ;
+	:hasName "concept"@en .
+} 
+
+# List of attributes (ASK)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://93.188.163.112/sparql/thoth2.owl#>
+
+ASK  
+{
+   ?s a :Attribute ;
+        :hasName "concept"@en .
+} 
+
